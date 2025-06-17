@@ -20,16 +20,15 @@ public class UserService {
             throw new IllegalArgumentException("User with ID " + id + " not found");
         }
 
-        // Primero eliminamos de la base local
         userRepository.deleteById(id);
 
-        // Luego enviamos la solicitud al microservicio de roles
         webClient.delete()
                 .uri("http://localhost:3001/roles/assign-role/{id}", id)
                 .retrieve()
                 .bodyToMono(Void.class)
-                .doOnSuccess(unused -> System.out.println("Rol eliminado para el usuario " + id))
-                .doOnError(error -> System.err.println("Error eliminando rol del usuario: " + error.getMessage()))
+                .doOnSuccess(unused -> System.out.println("Role removed for user " + id))
+                .doOnError(error -> System.err.println("Error removing role for user: " + error.getMessage()))
                 .subscribe();
     }
 }
+
