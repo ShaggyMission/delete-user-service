@@ -3,7 +3,7 @@ name: Java Docker CI/CD
 on:
   push:
     branches:
-      - "main"
+      - "test"
 
 jobs:
   test:
